@@ -50,13 +50,20 @@ cp design-md/nike/DESIGN.md ./DESIGN.md
 저장소에 수록하지 않고 업스트림에서 바로 설치합니다. 설치 위치·보안 검증·장단점은
 [`docs/marketingskills-review.md`](docs/marketingskills-review.md)를 참고하세요.
 
-```bash
-# 전체 설치
-npx skills add coreyhaines31/marketingskills
+**권장 12종** (49개 전체는 오발동·컨텍스트 부담이 커서 선별했습니다):
 
-# 권장: 필요한 것만 (49개 전체는 오발동·컨텍스트 부담)
-npx skills add coreyhaines31/marketingskills --skill cro copywriting social ads offers pricing marketing-psychology customer-research
+```bash
+npx skills add coreyhaines31/marketingskills --skill \
+  product-marketing customer-research marketing-psychology \
+  cro offers copywriting social ads ad-creative \
+  analytics ab-testing marketing-plan
 ```
+
+전체가 필요하면 `npx skills add coreyhaines31/marketingskills` (49개).
+선별 기준과 제외 사유는 리뷰 문서에 정리돼 있습니다.
+
+> 💡 **`product-marketing`을 제일 먼저 한 번 돌리세요.** `.agents/product-marketing.md`가 생기면
+> 나머지 스킬이 매번 이걸 읽어서 제품·ICP를 다시 안 물어봅니다. 진단 품질이 여기서 갈립니다.
 
 Claude Code 안에서는 `/plugin marketplace add coreyhaines31/marketingskills` → `/plugin install marketing-skills`도 가능합니다.
 

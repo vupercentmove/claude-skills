@@ -97,6 +97,42 @@ npx skills add coreyhaines31/marketingskills --agent claude-code
 7. **저자 1인 프로젝트.** 버스 팩터 1. 업스트림이 멈추면 그대로 멈춘다. 우리가 쓰는 스킬은
    포크해두는 편이 안전하다.
 
+## 선별 설치 결정 (2026-07-29)
+
+49개 전체를 깔았다가 **12개만 남겼다.** `skills-lock.json`이 이 12개 기준으로 갱신돼 있다.
+
+```bash
+npx skills add coreyhaines31/marketingskills --skill \
+  product-marketing customer-research marketing-psychology \
+  cro offers copywriting social ads ad-creative \
+  analytics ab-testing marketing-plan
+```
+
+| 스킬 | 남긴 이유 |
+|---|---|
+| `product-marketing` | 나머지 11개가 참조하는 컨텍스트 파일 생성. 제일 먼저 돌린다 |
+| `customer-research` | 고객 언어 확보 — 카피의 재료 |
+| `marketing-psychology` | 판단 근거. 언어 의존도가 낮아 그대로 쓸 수 있다 |
+| `cro` | 페이지 진단 순서 고정. 즉효성 1위 |
+| `offers` | 보너스·보장·희소성 — 커머스/D2C에 직결 |
+| `copywriting` | 구조만 차용 (문장은 한국어로 다시 씀) |
+| `social` | 캐러셀·숏폼 프레임워크 |
+| `ads` / `ad-creative` | 캠페인 전략 + 소재 대량 생성 |
+| `analytics` | GA4/GTM 이벤트 설계 |
+| `ab-testing` | "감으로 바꿨다" 방지 |
+| `marketing-plan` | 클라이언트 제안용 AARRR 종합 플랜 |
+
+제외한 37개는 필요할 때 `--skill <이름>`으로 개별 추가하면 된다. 주요 제외 사유:
+
+- `signup`·`onboarding`·`paywalls`·`churn-prevention`·`pricing` — B2B SaaS 구독 전제라 D2C 커머스와 안 맞음
+- `emails`·`sms`·`cold-email` — 영어 관용구 + 미국 규제(CAN-SPAM/TCPA) 기준
+- `content-strategy` — 우리 `insight-note-creator`·`carousel-copy-generator`와 역할 중복
+- `competitors` vs `competitor-profiling`, `ads` vs `ad-creative` 류 — 이름이 겹쳐 오발동 유발
+- `marketing-council` — 실존 인물 페르소나, 대외 산출물 부적합
+- `seo-audit`·`ai-seo`·`schema`·`programmatic-seo` 등 — SEO 본격화 시 재검토
+
+결과: 49개 → 12개, `.agents/skills` 용량 4.6MB → 1.1MB.
+
 ## 뷰퍼센트무브 관점의 권장 사용법
 
 - **바로 쓸 만한 것**: `cro`, `customer-research`, `marketing-psychology`, `offers`, `pricing`,
