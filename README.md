@@ -45,6 +45,25 @@ cp design-md/nike/DESIGN.md ./DESIGN.md
 
 > ⚠️ 브랜드 디자인 레퍼런스는 커뮤니티가 공개 CSS에서 추출한 비공식 자료입니다. 특정 브랜드의 룩을 상업 결과물에 통째로 복제하면 트레이드 드레스 이슈가 될 수 있으니 참고용으로만 사용하세요.
 
+### marketingskills (마케팅 스킬 49종) — 외부 설치형
+
+저장소에 수록하지 않고 업스트림에서 바로 설치합니다. 설치 위치·보안 검증·장단점은
+[`docs/marketingskills-review.md`](docs/marketingskills-review.md)를 참고하세요.
+
+```bash
+# 전체 설치
+npx skills add coreyhaines31/marketingskills
+
+# 권장: 필요한 것만 (49개 전체는 오발동·컨텍스트 부담)
+npx skills add coreyhaines31/marketingskills --skill cro copywriting social ads offers pricing marketing-psychology customer-research
+```
+
+Claude Code 안에서는 `/plugin marketplace add coreyhaines31/marketingskills` → `/plugin install marketing-skills`도 가능합니다.
+
+> ⚠️ 에이전트 세션 안에서 `npx skills add`를 돌리면 `.agents/skills/`에만 깔려 Claude Code가 못 읽는 경우가 있습니다.
+> `.claude/skills/`에 심링크가 걸렸는지 확인하고, 없으면 `--agent claude-code`를 붙여 재설치하세요.
+> 스킬 본문이 전부 영어·B2B SaaS 기준이라 한국어 카피 작업에는 `im-not-ai`와 병용을 권장합니다.
+
 ## 검증 후 보류/제외한 스킬
 
 | 스킬 | 사유 |
