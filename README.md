@@ -14,6 +14,27 @@
 | `skills/graph-engineering/` | [codejunkie99/graph-engineering](https://github.com/codejunkie99/graph-engineering) (★261) | MIT | 지식그래프 9단계 파이프라인 + 멀티에이전트 태스크그래프 설계 교재 |
 | `design-md/` | [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) (★104k) | MIT | 유명 브랜드 디자인 시스템 레퍼런스 (12개 브랜드 큐레이션) |
 
+## macOS 일괄 설치 스크립트
+
+`scripts/macmini-setup.sh`는 macOS(맥미니 기준)에서 아래를 한 번에 처리합니다.
+
+```bash
+chmod +x scripts/macmini-setup.sh && ./scripts/macmini-setup.sh
+
+# 설치할 프로젝트 폴더를 미리 지정하려면
+PROJECT_DIR=~/Work/carousel ./scripts/macmini-setup.sh
+```
+
+- Homebrew · Node 22 · Python 3.12 · Git 확인/설치 (`node@22`는 keg-only라 PATH를 `~/.zshrc`에 등록)
+- [open-image-prompts](https://github.com/NanmiCoder/open-image-prompts) clone → 데이터셋 다운로드 → 로그인 자동 실행용 `autostart.command` 생성
+- 이 저장소의 `draw-your-font`·`graph-engineering` 설치
+
+**스킬은 전역(`~/.claude/skills`)이 아니라 지정한 프로젝트의 `<프로젝트>/.claude/skills/`에만 설치됩니다.** 전역에 쌓으면 모든 세션에서 로드되어 컨텍스트를 먹고 오발동 여지가 생기므로, 실제로 쓸 폴더에만 넣는 방식입니다. 따라서 해당 폴더에서 Claude Code를 실행해야 스킬이 잡힙니다.
+
+중간에 끊어도 안전하며, 다시 실행하면 완료된 단계는 건너뜁니다. 용량이 큰 다운로드와 설치는 모두 확인을 받고 진행합니다.
+
+> ℹ️ 데이터셋은 DB만(약 80MB) 또는 이미지 포함(약 4.3GB) 중 선택합니다. DB만 고르면 `OIP_FETCH_SKIP_IMAGES=1`이 `autostart.command`에 자동으로 반영됩니다 — 이 변수가 없으면 업스트림 `start.sh`가 실행 시마다 이미지 팩을 다시 받으려 합니다.
+
 ## 설치 방법
 
 ### im-not-ai (한글 AI 티 제거)
@@ -86,7 +107,7 @@ cp design-md/nike/DESIGN.md ./DESIGN.md
 | n8n-skills | 신뢰도는 높으나 n8n-mcp 서버 + n8n 인스턴스/API 키 전제 |
 | OpenMontage | 스킬이 아닌 풀 영상 제작 앱(Python/FFmpeg/Remotion), 최근 커맨드 인젝션 패치 이력 |
 | chromux | ★38개·5주차 신생 프로젝트, 라이브 모드가 로그인된 실제 브라우저를 무인증 로컬 브리지로 노출 |
-| [open-image-prompts](https://github.com/NanmiCoder/open-image-prompts) | 보안 문제는 없음(기본 `127.0.0.1` 바인딩). 다만 Python 백엔드 + Node 20.19+ 프론트를 상시 구동하고 이미지 팩이 약 4.3GB — 저장소에 담을 성격이 아니라 로컬 머신에 직접 설치 (`npx skills add NanmiCoder/open-image-prompts -g`) |
+| [open-image-prompts](https://github.com/NanmiCoder/open-image-prompts) | 코드 감사 통과 — 모든 다운로드에 sha256 검증, 바인딩 `127.0.0.1` 고정, 루트 npm 의존성 0개, 파이썬은 프로젝트 내 `.venv`로 격리. 다만 Python 백엔드 + Node 20.19+ 프론트를 상시 구동하고 이미지 팩이 약 4.3GB라 저장소에 담을 성격이 아님 → `scripts/macmini-setup.sh`로 로컬 설치 |
 | [claude-quest](https://github.com/Michaelliv/claude-quest) | 스킬이 아니라 Go+Raylib 기반 별도 GUI 앱. 로컬 대화 로그(JSONL)만 읽고 네트워크 호출 없음. 디스플레이 필요하므로 헤드리스 환경에서는 무용 (`npm i -g claude-quest`) |
 | [Finn-loop](https://github.com/finna/Finn-loop) | Linear 워크스페이스 + 커넥터 + GitHub CLI 쓰기 권한 + 필수 CI 체크 1개 이상이 모두 전제. 선결과제가 과다하고, 필수 CI가 없으면 전건 사람 검토로 에스컬레이션되어 자동화 이점이 사라짐 |
 
