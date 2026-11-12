@@ -111,6 +111,20 @@ cp design-md/nike/DESIGN.md ./DESIGN.md
 | [claude-quest](https://github.com/Michaelliv/claude-quest) | 스킬이 아니라 Go+Raylib 기반 별도 GUI 앱. 로컬 대화 로그(JSONL)만 읽고 네트워크 호출 없음. 디스플레이 필요하므로 헤드리스 환경에서는 무용 (`npm i -g claude-quest`) |
 | [Finn-loop](https://github.com/finna/Finn-loop) | Linear 워크스페이스 + 커넥터 + GitHub CLI 쓰기 권한 + 필수 CI 체크 1개 이상이 모두 전제. 선결과제가 과다하고, 필수 CI가 없으면 전건 사람 검토로 에스컬레이션되어 자동화 이점이 사라짐 |
 
+## 공식 플러그인 검토 (3차: 2026-11-12)
+
+인스타 공유자료 "클로드 안에 크리에이티브 팀 만들기"의 7개 항목을 원본 저장소([anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official), [remotion-dev/skills](https://github.com/remotion-dev/skills))를 직접 열어 검토했습니다. 이 저장소에 파일로 담을 대상이 아니라 Claude Code 안에서 `/plugin install`로 설치하는 항목이라, 판정만 기록합니다.
+
+| 항목 | 판정 | 근거 |
+|---|---|---|
+| frontend-design | **설치 권장** | 마크다운 스킬 1개(실행 코드 없음). Next.js 랜딩 작업에 바로 쓰임. 화면 작업하는 프로젝트에만 설치 |
+| Playwright MCP | **설치 권장 (조건부)** | Microsoft 공식, 활발히 관리됨(0.0.85, 2026-11-09). 자사 페이지 테스트·화면 확인용으로 설치. 경쟁몰 대량 수집은 약관 위반 소지가 있어 쓰지 않음. 공식 설정은 `@latest`라 실행할 때마다 버전이 바뀜 → 직접 등록할 때는 버전 고정 |
+| claude-code-setup | 선택 | 읽기 전용 추천 스킬 1개, 위험 없음. 새 개발 프로젝트를 시작할 때만 쓸모가 있음 |
+| security-guidance | **보류** | v2.0.19부터 단순 패턴 경고가 아님: 매 응답 종료(Stop)·커밋마다 최신 Opus로 diff 리뷰를 돌려 **사용량을 계속 소모**하고, 첫 실행 때 `~/.claude/security/`에 venv를 만들어 Agent SDK를 pip 설치함. 코드 리뷰는 Codex가 맡고 있으므로 배포 전 내장 `/security-review`로 대체. 고객정보·결제 프로젝트에서만 `ENABLE_STOP_REVIEW=0`으로 설치 검토 |
+| Remotion | **보류 (라이선스 확인)** | 직원 4명 이상인 영리법인은 유료 Company License 필요([LICENSE.md](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md)). Remotion 5.0에서 라이선스 변경 예고. 스킬이 아니라 Node 영상 프로젝트라 세팅 부담이 큼 |
+| Discord 채널 | **제외** | Bun 설치·봇 토큰·집 컴퓨터 상시 실행이 전제. 폰에서 지시하는 기능은 Claude 앱 원격 세션·Remote Control로 이미 가능 |
+| skill-creator | **제외 (보유 중)** | 이미 `anthropic-skills:skill-creator`로 쓰는 중 |
+
 ## 라이선스
 
 수록된 각 스킬의 원 라이선스(MIT)와 저작권 고지는 각 디렉터리의 `LICENSE` 파일을 따릅니다.
